@@ -1,0 +1,15 @@
+George Town VR — media credits and notices
+
+PHOTO: media/street.jpg
+“Penang.Shophouse (III).jpg” — Supanut Arunoprayote, Wikimedia Commons. Photograph of shophouses along Muntri Street, George Town, Penang; photographed 15 January 2020. Source/file page: https://commons.wikimedia.org/wiki/File:Penang.Shophouse_(III).jpg . License: Creative Commons Attribution 4.0 International (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/ . Original photograph resized from 5625 × 3750 to 3840 × 2560 by Wikimedia Commons; display file re-encoded as JPEG for this bundle. No changes to depicted scene.
+
+PHOTO: media/courtyard.jpg
+“Five foot way in George Town, Penang.jpg” — HundenvonPenang, Wikimedia Commons. Photograph of a covered five-foot-way (kaki lima), George Town, Penang; dated 22 March 2024. Source/file page: https://commons.wikimedia.org/wiki/File:Five_foot_way_in_George_Town,_Penang.jpg . License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0): https://creativecommons.org/licenses/by-sa/4.0/ . Resized from 5819 × 7759 to 1920 × 2560 by Wikimedia Commons; display file re-encoded as JPEG for this bundle. This depicts a covered walkway, NOT an open-air courtyard. No open courtyard photo included.
+
+ILLUSTRATION: media/then.jpg
+Original source: “Penang.Shophouse (III).jpg” above (CC BY 4.0). Edited derivative: gentle warmth, reduced saturation, contrast/brightness adjustment, and a prominent “ILLUSTRATIVE VARIANT · NOT AN ARCHIVAL PHOTOGRAPH” label. It is a stylized, present-day photo-based illustration, NOT an archival reconstruction or evidence of past appearance.
+
+NARRATION: media/story-en.mp3; media/story-ms.mp3
+Original fictional scripts are provided in story.js. Synthetic Microsoft Edge Read Aloud neural voices via edge-tts: en-GB-SoniaNeural and ms-MY-YasminNeural. Generated MP3 audio is synthetic. edge-tts is an open-source client using the online Edge Read Aloud service; its software license does NOT establish that Microsoft authorizes commercial redistribution of generated audio. Obtain written authorization or regenerate through an appropriately licensed provider before commercial release. No archival testimony or historical resident voice is represented.
+
+Please retain these credits and license notices when redistributing the photographs or derivatives.
