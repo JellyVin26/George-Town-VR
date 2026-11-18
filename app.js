@@ -372,9 +372,10 @@
     if (vr) vr.hidden = !ok;
     if (sim) sim.hidden = ok;
     $$('.vrrow').forEach((row) => { row.querySelector('p').textContent = ok ? t().vr : t().noVr; });
-  } const toggleSimVR = () => { const on = document.body.classList.toggle('sim-vr'); $('#sim-vr').textContent = on ? t().simExit : t().simVr; }; window.toggleSimVR = toggleSimVR;
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('sim-vr')) toggleSimVR(); });
-  const originalPaint = paint; paint = (...args) => { originalPaint(...args); const sim = $('#sim-vr'); if (sim) { sim.hidden = false; sim.textContent = document.body.classList.contains('sim-vr') ? t().simExit : t().simVr; sim.onclick = toggleSimVR; } };
+  } const toggleSimVR = () => { const on = document.body.classList.toggle('sim-vr'); $('#sim-vr').textContent = on ? t().simExit : t().simVr; }; window.toggleSimVR = toggleSimVR; window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('sim-vr')) toggleSimVR(); });
+  function addSimVRControls() { const sim = $('#sim-vr') || $('#sim-vr2'); if (sim) { sim.hidden = false; sim.textContent = document.body.classList.contains('sim-vr') ? t().simExit : t().simVr; } }
+  const originalPaint = paint; paint = (...args) => { originalPaint(...args); addSimVRControls(); };
+
 
   async function enterVR() {
     if (!window.Heritage3D || !window.Heritage3D.enter) return;
