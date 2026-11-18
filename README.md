@@ -4,7 +4,7 @@ Bilingual heritage shophouse experience (English / Bahasa Melayu).
 
 ## Run locally
 
-Open `index.html` or serve this directory over localhost. The browser preview supports desktop and touch. **Simulated VR** is a desktop presentation mode, not an immersive headset session.
+Open `index.html` or serve this directory over localhost. The browser preview supports desktop and touch. Select **Open 3D Tour** to explore the shophouse in the browser. No headset required.
 
 ## Media
 

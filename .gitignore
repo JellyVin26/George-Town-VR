@@ -1,0 +1,7 @@
+node_modules/
+*.cjs
+*.md
+!/README.md
+/screenshots/
+/vendor/test/
+/vendor/three-scene.js

@@ -126,8 +126,8 @@
     return `<section class="hero">
       <div class="hero-copy"><p class="eyebrow">GEORGE TOWN · PENANG · ${state.lang.toUpperCase()}</p>
         <h1>${t().brand}</h1><p class="lede">${t().lead}</p>
-        <div class="actions"><a class="primary" href="#${resumable ? 'trail' : 'history'}">${resumable ? t().resume : t().start}</a><button id="vr" class="ghost" hidden aria-describedby="vr-note">${t().vr}</button><button id="sim-vr" class="ghost" hidden>${t().simVr}</button></div>
-        <p class="hint" id="vr-note">${t().noVr}</p></div>
+        <div class="actions"><a class="primary" href="#${resumable ? 'trail' : 'history'}">${resumable ? t().resume : t().start}</a><button id="sim-vr" class="ghost" hidden>${state.lang === 'ms' ? 'Buka Lawatan 3D' : 'Open 3D Tour'}</button></div>
+        <p class="hint" id="vr-note">${state.lang === 'ms' ? 'Prototaip pelayar · Tiada set kepala diperlukan.' : 'Browser prototype · No headset needed.'}</p></div>
       <figure class="hero-photo"><img src="media/street.jpg" alt="Shophouse street front in George Town" width="900" height="600"><figcaption>${esc(STOPS[0].credit)}</figcaption></figure>
     </section>
     <section class="stopbar" aria-labelledby="stop-label"><h2 id="stop-label">${t().stops}</h2>
@@ -158,12 +158,12 @@
     ${vrRow('history')}`;
   }
 
-  const vrRow = (ctx) => `<section class="panel vrrow"><div><h2>${t().vr}</h2><p>${t().noVr}</p></div><button id="vr2" class="primary" hidden data-ctx="${ctx}">${t().vr}</button><button id="sim-vr2" class="primary" hidden>${t().simVr}</button></section>`;
+  const vrRow = (ctx) => ctx === 'tour' ? '' : `<section class="panel vrrow"><a class="primary" href="#tour">${state.lang === 'ms' ? 'Buka Lawatan 3D' : 'Open 3D Tour'}</a></section>`;
 
   function renderArtifact() {
     return `${backBtn()}<header class="page"><p class="eyebrow">03 · ${esc(stopName(1))}</p><h1>${t().artifactTitle}</h1><p class="lede">${t().artifactLead}</p></header>
     <section class="panel split">
-      <div class="scene" id="scene" tabindex="0" role="application" aria-label="${t().rotate} · ${t().pickPart}"><canvas id="stage" width="900" height="620"></canvas><span class="tag">${t().rotate}</span><div class="scene-tools"><button data-model="zoom-in" aria-label="${t().zoomIn}">+</button><button data-model="zoom-out" aria-label="${t().zoomOut}">−</button><button data-model="reset">${t().reset}</button></div></div>
+      <div class="scene" id="scene" tabindex="0" role="application" aria-label="${t().rotate} · ${t().pickPart}"><div class="model-stage" id="stage"></div><span class="tag">${t().rotate}</span><div class="scene-tools"><button data-model="zoom-in" aria-label="${t().zoomIn}">+</button><button data-model="zoom-out" aria-label="${t().zoomOut}">−</button><button data-model="reset">${t().reset}</button></div></div>
       <div class="side"><h2>${t().parts}</h2><p class="hint">${t().pickPart}</p>
         <div class="partlist">${['handle', 'blade'].map((p, i) => `<button data-part="${p}" aria-pressed="false"><b>${i + 1}</b><span>${t()[p]}</span><span class="chev">›</span></button>`).join('')}</div>
         <div class="note" id="note" role="status"><strong>${t().handle}</strong><span>${t().handleBody}</span></div>
@@ -174,7 +174,7 @@
   function renderTour() {
     return `${backBtn()}<header class="page"><p class="eyebrow">04 · ${esc(stopName(2))}</p><h1>${t().tourTitle}</h1><p class="lede">${t().tourLead}</p></header>
     <section class="panel split">
-      <div class="scene tour" id="scene" tabindex="0" role="application" aria-label="${t().dragLook}"><canvas id="stage" width="900" height="620"></canvas><span class="tag" id="place">${t().front}</span><div class="scene-tools"><button data-look="left" aria-label="${t().lookLeft}">←</button><button data-look="right" aria-label="${t().lookRight}">→</button></div><button class="hotspot" id="light-hotspot" data-light aria-describedby="note"><b>1</b></button></div>
+      <div class="scene tour" id="scene" tabindex="0" role="application" aria-label="${t().dragLook}"><div class="model-stage" id="stage"></div><span class="tag" id="place">${t().front}</span><div class="scene-tools"><button data-look="left" aria-label="${t().lookLeft}">←</button><button data-look="right" aria-label="${t().lookRight}">→</button></div><button class="hotspot" id="light-hotspot" data-light aria-describedby="note"><b>1</b></button></div>
       <div class="side"><h2>${t().floorPlan}</h2>
         <svg class="plan" viewBox="0 0 300 150" role="img" aria-label="${t().floorPlan}"><rect x="6" y="10" width="288" height="120" rx="2"/><line x1="110" y1="10" x2="110" y2="130"/><line x1="205" y1="10" x2="205" y2="130"/><rect class="well" x="205" y="10" width="38" height="52"/><text x="58" y="76">${t().front}</text><text x="157" y="76">${t().court}</text></svg>
         <div class="roomlist">${[0, 1].map((r) => `<button data-room="${r}" aria-pressed="${r === 0}"><b>${r === 0 ? '1' : '2'}</b><span>${r === 0 ? t().front : t().court}</span><small>${r === 0 ? t().youAreHere : ''}</small></button>`).join('')}</div>
@@ -241,7 +241,7 @@
     $$('.experience').forEach((a) => { if (a.getAttribute('href') === '#' + r) a.setAttribute('aria-current', 'page'); });
     $$('header nav a').forEach((a) => a.setAttribute('aria-current', a.getAttribute('href') === '#explore' && r === 'explore' ? 'page' : a.getAttribute('href') === '#trail' && r === 'trail' ? 'page' : 'false'));
     wire(r);
-    checkVR();
+
   }
 
   function wire(r) {
@@ -265,23 +265,27 @@
     if (r === 'artifact' || r === 'tour') mountScene(r);
     if (r === 'story') wireStory();
     if (r === 'trail') wireTrail();
-    $$('[id^="vr"]').forEach((b) => b.addEventListener('click', enterVR));
-    $$('[id^="sim-vr"]').forEach((b) => b.addEventListener('click', toggleSimVR));
-    if (document.body.classList.contains('simulated-vr')) addSimVRControls();
+    $$('[id^="sim-vr"]').forEach((b) => {
+      b.hidden = false;
+      b.addEventListener('click', () => { location.hash = 'tour'; $('#scene')?.focus(); });
+    });
   }
 
   function mountScene(kind) {
     const el = $('#scene');
-    if (!window.Heritage3D) { el.insertAdjacentHTML('beforeend', `<p class="fallback">${state.lang === 'ms' ? 'Pemapar 3D tidak tersedia.' : '3D viewer unavailable.'}</p>`); return; }
+    const stage = $('#stage');
     try {
-      scene = window.Heritage3D.mount(el.querySelector('canvas'), {
+      scene = window.Heritage3D.mount(stage, {
         kind: kind === 'artifact' ? 'artifact' : 'tour',
         stop: kind === 'artifact' ? 1 : state.stop,
         room: 0,
         onPart: (p) => setPart(p),
         onLight: () => { const n = $('#note'); n.classList.add('pulse'); }
       });
-    } catch (e) { console.error(e); }
+    } catch {
+      stage.innerHTML = `<img src="media/street.jpg" alt="${state.lang === 'ms' ? 'Foto rujukan rumah kedai' : 'Shophouse reference photo'}"><p class="model-fallback" role="status">${state.lang === 'ms' ? 'Paparan 3D tidak tersedia. Foto rujukan ditunjukkan.' : '3D unavailable. Showing a reference photo.'}</p>`;
+      el.querySelectorAll('.scene-tools button').forEach(b => { b.disabled = true; });
+    }
     if (kind === 'artifact') {
       $$('[data-model]').forEach((b) => b.addEventListener('click', () => { const a = b.dataset.model; if (a === 'reset') scene && scene.reset(); else scene && scene.zoom(a === 'zoom-in' ? 1.15 : 1 / 1.15); }));
       $$('[data-part]').forEach((b) => b.addEventListener('click', () => setPart(b.dataset.part)));
@@ -363,30 +367,6 @@
       save(); paint();
     });
     if ($('#restart')) $('#restart').addEventListener('click', () => { state.completed = []; state.answers = {}; state.cursor = 0; state.trailTab = 0; save(); paint(); });
-  }
-
-  async function checkVR() {
-    let ok = false;
-    try { ok = !!(navigator.xr && await navigator.xr.isSessionSupported('immersive-vr')); } catch { ok = false; }
-    const vr = $('#vr'), sim = $('#sim-vr');
-    if (vr) vr.hidden = !ok;
-    if (sim) sim.hidden = ok;
-    $$('.vrrow').forEach((row) => { row.querySelector('p').textContent = ok ? t().vr : t().noVr; });
-  } const toggleSimVR = () => { const on = document.body.classList.toggle('sim-vr'); $('#sim-vr').textContent = on ? t().simExit : t().simVr; }; window.toggleSimVR = toggleSimVR; window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('sim-vr')) toggleSimVR(); });
-  function addSimVRControls() { const sim = $('#sim-vr') || $('#sim-vr2'); if (sim) { sim.hidden = false; sim.textContent = document.body.classList.contains('sim-vr') ? t().simExit : t().simVr; } }
-  const originalPaint = paint; paint = (...args) => { originalPaint(...args); addSimVRControls(); };
-
-
-  async function enterVR() {
-    if (!window.Heritage3D || !window.Heritage3D.enter) return;
-    try {
-      await window.Heritage3D.enter({
-        stop: state.stop, lang: state.lang,
-        storyUrl: `media/story-${state.lang}.mp3`,
-        onEnd: () => {}, onView: () => {},
-        labels: { exit: state.lang === 'ms' ? 'Keluar VR' : 'Exit VR', next: state.lang === 'ms' ? 'Seterusnya' : 'Next' }
-      });
-    } catch (e) { console.warn('VR entry failed', e); }
   }
 
   $('#language').value = state.lang;
